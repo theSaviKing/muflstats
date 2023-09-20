@@ -1,0 +1,23 @@
+{
+    "actionButtons": {
+        "defaultColor": "coral",
+        "loadNpmCommands": false,
+        "commands": [
+            {
+                "name": "$(terminal) Run Dev",
+                "singleInstance": true,
+                "command": "bun run dev"
+            },
+            {
+                "name": "$(arrow-up) Push Prisma Schema",
+                "singleInstance": true,
+                "command": "bunx prisma db push"
+            },
+            {
+                "name": "$(inspect) Prisma Studio",
+                "singleInstance": true,
+                "command": "bunx prisma studio"
+            }
+        ]
+    }
+}

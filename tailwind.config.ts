@@ -1,11 +1,10 @@
 import type { Config } from "tailwindcss";
 import chroma from "chroma-js";
 import { nextui } from "@nextui-org/react";
+import plugin from "tailwindcss/plugin";
 const config: Config = {
     content: [
-        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-        "./components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/**/*.{js,ts,jsx,tsx,mdx}",
         "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {},
@@ -46,13 +45,20 @@ const config: Config = {
                         success: "#48C934",
                         warning: "#FFB342",
                         danger: "#FF5242",
-                        content1: chroma("#051014").brighten(0.25).hex(),
-                        content2: chroma("#051014").brighten(0.5).hex(),
-                        content3: chroma("#051014").brighten(0.75).hex(),
-                        content4: chroma("#051014").brighten().hex(),
+                        content1: chroma("#051014").brighten(0.5).hex(),
+                        content2: chroma("#051014").brighten(1).hex(),
+                        content3: chroma("#051014").brighten(1.5).hex(),
+                        content4: chroma("#051014").brighten(2).hex(),
                     },
                 },
             },
+        }),
+        plugin(function ({ addUtilities }) {
+            addUtilities({
+                ".flex-center": {
+                    "@apply justify-center items-center": {},
+                },
+            });
         }),
     ],
     darkMode: "class",

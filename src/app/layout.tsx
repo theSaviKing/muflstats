@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "../providers";
 
-const inter = Inter({ subsets: ["latin"], weight: "variable" });
+export const inter = Inter({ subsets: ["latin"], weight: "variable" });
 
 export const metadata: Metadata = {
     title: {
@@ -19,12 +19,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className="mydark text-foreground bg-background">
-            <body className={inter.className}>
-                <Providers>
-                    <div className="flex flex-col justify-center items-center w-screen h-screen px-4 pb-4 pt-8">
-                        {children}
-                    </div>
-                </Providers>
+            <body
+                className={`${inter.className} w-screen h-screen select-none`}
+            >
+                <Providers>{children}</Providers>
             </body>
         </html>
     );
