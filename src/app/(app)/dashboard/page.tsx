@@ -90,6 +90,7 @@ async function MostRecentGame() {
 }
 
 export default async function Dashboard() {
+    "use client";
     return (
         <>
             <h1 className="text-5xl font-thin">Dashboard</h1>
