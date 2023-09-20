@@ -1,4 +1,4 @@
-import { Icon } from "@/components/Icon";
+import { Icon } from "../app/icon";
 
 export default function LetterIcon({ className }: { className?: string }) {
     return (

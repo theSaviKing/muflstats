@@ -15,7 +15,11 @@ import {
     UserGroupIcon as TinyPlayers,
 } from "@heroicons/react/20/solid";
 
-export default function ({ children }: { children: React.ReactNode }) {
+export default function PageLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     return (
         <div className="w-screen h-screen overflow-hidden flex flex-col">
             <Navbar isBordered>
