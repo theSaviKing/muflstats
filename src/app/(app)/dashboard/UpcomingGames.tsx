@@ -41,13 +41,16 @@ export default async function UpcomingGames() {
                         <p className="text-sm font-medium text-center">
                             {`${game.timestamp.toLocaleDateString("en-US", {
                                 weekday: "short",
+                                timeZone: "America/Chicago",
                             })} ${game.timestamp.toLocaleDateString("en-US", {
                                 month: "numeric",
                                 day: "numeric",
+                                timeZone: "America/Chicago",
                             })}`}
                             <br />
                             {game.timestamp.toLocaleTimeString("en-US", {
                                 timeStyle: "short",
+                                timeZone: "America/Chicago",
                             })}
                         </p>
                     </Card>
