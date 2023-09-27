@@ -21,7 +21,7 @@ export default function PageLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="w-screen h-screen overflow-hidden flex flex-col">
+        <div className="w-screen h-screen flex flex-col">
             <Navbar isBordered>
                 <NavbarContent>
                     <NavbarBrand className="gap-4" as={Link} href="/">
@@ -31,7 +31,10 @@ export default function PageLayout({
                         </h1>
                     </NavbarBrand>
                 </NavbarContent>
-                <NavbarContent className="hidden sm:flex gap-2">
+                <NavbarContent
+                    className="hidden sm:flex gap-2"
+                    justify="center"
+                >
                     <Button
                         variant="light"
                         size="lg"

@@ -2,12 +2,20 @@ import type { Config } from "tailwindcss";
 import chroma from "chroma-js";
 import { nextui } from "@nextui-org/react";
 import plugin from "tailwindcss/plugin";
+import defaultTheme from "tailwindcss/defaultTheme";
 const config: Config = {
     content: [
         "./src/**/*.{js,ts,jsx,tsx,mdx}",
         "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     ],
-    theme: {},
+    theme: {
+        extend: {
+            fontFamily: {
+                display: ["Inter", ...defaultTheme.fontFamily.serif],
+                sans: ["Rubik", ...defaultTheme.fontFamily.sans],
+            },
+        },
+    },
     plugins: [
         nextui({
             themes: {

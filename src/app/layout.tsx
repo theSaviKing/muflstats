@@ -1,9 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Rubik } from "next/font/google";
 import { Providers } from "../providers";
 
 export const inter = Inter({ subsets: ["latin"], weight: "variable" });
+export const rubik = Rubik({ subsets: ["latin"], weight: "variable" });
 
 export const metadata: Metadata = {
     title: {
@@ -20,7 +21,7 @@ export default function RootLayout({
     return (
         <html lang="en" className="mydark text-foreground bg-background">
             <body
-                className={`${inter.className} w-screen h-screen select-none`}
+                className={`${inter.className} ${rubik.className} w-screen h-screen select-none`}
             >
                 <Providers>{children}</Providers>
             </body>

@@ -26,16 +26,18 @@ model Player {
 }
 
 model Team {
-    id        Int       @id @default(autoincrement())
-    name      String    @db.Char(50)
-    createdAt DateTime  @default(now()) @db.Timestamptz(6)
-    updatedAt DateTime? @updatedAt @db.Timestamptz(6)
-    seasonId  Int
-    color     String    @db.Char(10)
-    awayGames Game[]    @relation("AwayGames")
-    homeGames Game[]    @relation("HomeGames")
-    players   Player[]
-    season    Season[]
+    id           Int           @id @default(autoincrement())
+    name         String        @unique @db.Char(50)
+    shortName    String        @db.Char(50)
+    createdAt    DateTime      @default(now()) @db.Timestamptz(6)
+    updatedAt    DateTime?     @updatedAt @db.Timestamptz(6)
+    seasonId     Int
+    color        String        @db.Char(10)
+    awayGames    Game[]        @relation("AwayGames")
+    homeGames    Game[]        @relation("HomeGames")
+    players      Player[]
+    season       Season[]
+    performances Performance[]
 }
 
 model Season {
@@ -73,6 +75,8 @@ model Performance {
     id             Int    @id @default(autoincrement())
     player         Player @relation(references: [id], fields: [playerId])
     playerId       Int
+    team           Team   @relation(references: [id], fields: [teamId])
+    teamId         Int
     game           Game   @relation(references: [id], fields: [gameId])
     gameId         Int
     goalsThrown    Int

@@ -1,9 +1,9 @@
-import prisma from "@/lib/prisma";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
-import { CardBody } from "@nextui-org/react";
 import { Prisma } from "@prisma/client";
+import prisma from "@/lib/prisma";
+import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
+import { CardBody } from "@nextui-org/card";
 
-export async function getMostRecentMatchup(): Promise<
+async function getMostRecentMatchup(): Promise<
     | (Prisma.GameGetPayload<{
           include: {
               awayTeam: true;
@@ -14,7 +14,6 @@ export async function getMostRecentMatchup(): Promise<
     | boolean
 > {
     try {
-        console.log("Trying to get most recent matchup...");
         const mostRecentGame = await prisma.game.findFirstOrThrow({
             orderBy: {
                 timestamp: "desc",
@@ -52,7 +51,6 @@ export async function getMostRecentMatchup(): Promise<
         return false;
     }
 }
-
 export default async function MostRecentMatchup() {
     const mostRecentMatchup = await getMostRecentMatchup();
     if (typeof mostRecentMatchup === "boolean") {
@@ -83,7 +81,9 @@ export default async function MostRecentMatchup() {
                         {mostRecentMatchup.awayTeamScores}
                     </div>
                 </div>
-                <div>{mostRecentMatchup.awayTeam.name}</div>
+                <div className="text-left">
+                    {mostRecentMatchup.awayTeam.name}
+                </div>
                 <div
                     className="rounded-full w-5 aspect-square ring-1 ring-offset-2 ring-offset-content1 ring-primary shrink-0"
                     style={{
