@@ -7,6 +7,7 @@ import { ReactNode, Suspense } from "react";
 import MostRecentMatchup from "./components/MostRecentMatchup/MostRecentMatchup";
 import TopPerformances from "./components/TopPerformances/TopPerformances";
 import UpcomingGames from "./components/UpcomingGames";
+import LeagueStandings from "./components/TeamStandings";
 
 const SectionHeader = ({ children }: { children: string }) => (
     <CardHeader className="p-4 font-display">
@@ -62,6 +63,10 @@ export default async function Dashboard() {
                 </Card>
                 <Card className="col-span-full shrink-0">
                     <SectionHeader>league standings</SectionHeader>
+                    <Divider />
+                    <DashSuspense>
+                        <LeagueStandings />
+                    </DashSuspense>
                 </Card>
             </div>
         </>

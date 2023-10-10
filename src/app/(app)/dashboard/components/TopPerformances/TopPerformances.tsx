@@ -1,7 +1,7 @@
 import LoadingError from "@/components/LoadingError";
 import prisma from "@/lib/prismaClient";
 import { TopPlayerTable } from "./TPTable";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
 
 async function getTopPerformances() {
     try {

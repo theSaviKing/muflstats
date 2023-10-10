@@ -1,3 +1,3 @@
-export default function TeamStandings() {
+export default async function LeagueStandings() {
     return <div></div>;
 }

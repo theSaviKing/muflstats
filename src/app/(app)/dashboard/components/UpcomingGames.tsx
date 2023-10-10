@@ -3,7 +3,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { Card, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import LoadingError from "@/components/LoadingError";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
 
 async function getUpcomingGames() {
     try {
