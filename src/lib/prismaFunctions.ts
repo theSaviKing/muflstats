@@ -16,11 +16,11 @@ export function getTeamRecord(
     /**
      * Determines the outcome of a game based on the points scored.
      * @param game - The game object containing performances.
-     * @returns The outcome of the game: 2 for win, 1 for draw, 0 for loss.
+     * @returns The outcome of the game: win, draw, loss, or not played
      */
     const determineOutcome = (
         game: Prisma.GameGetPayload<{ include: { performances: true } }>
-    ): -1 | 0 | 1 | 2 => {
+    ) => {
         const teamPoints = game.performances
             .filter((p) => p.teamId === team.id)
             .reduce((pAcc, pCurr) => pAcc + pCurr.goalsCaught, 0);
@@ -28,30 +28,19 @@ export function getTeamRecord(
             .filter((p) => p.teamId !== team.id)
             .reduce((pAcc, pCurr) => pAcc + pCurr.goalsCaught, 0);
         if (teamPoints - oppPoints > 0) {
-            return 2;
+            return "win";
         } else if (game.performances.length == 0) {
-            return -1;
+            return "not played";
         } else if (teamPoints - oppPoints == 0) {
-            return 1;
+            return "draw";
         } else {
-            return 0;
+            return "loss";
         }
     };
 
     return [...team.homeGames, ...team.awayGames]
         .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
-        .map((game) => {
-            switch (determineOutcome(game)) {
-                case 2:
-                    return "win";
-                case 1:
-                    return "draw";
-                case 0:
-                    return "loss";
-                case -1:
-                    return "not played";
-            }
-        });
+        .map((game) => determineOutcome(game));
 }
 
 // import prisma from "./prismaClient";
