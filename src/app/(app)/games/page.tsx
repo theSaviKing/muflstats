@@ -16,7 +16,7 @@ async function getGames() {
             },
             where: {
                 timestamp: {
-                    gte: new Date("2023-10-02"),
+                    gte: new Date("2023-9-25"),
                 },
             },
         });

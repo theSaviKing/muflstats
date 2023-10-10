@@ -20,7 +20,7 @@ export function getTeamRecord(
      */
     const determineOutcome = (
         game: Prisma.GameGetPayload<{ include: { performances: true } }>
-    ): 0 | 1 | 2 => {
+    ): -1 | 0 | 1 | 2 => {
         const teamPoints = game.performances
             .filter((p) => p.teamId === team.id)
             .reduce((pAcc, pCurr) => pAcc + pCurr.goalsCaught, 0);
@@ -29,6 +29,8 @@ export function getTeamRecord(
             .reduce((pAcc, pCurr) => pAcc + pCurr.goalsCaught, 0);
         if (teamPoints - oppPoints > 0) {
             return 2;
+        } else if (game.performances.length == 0) {
+            return -1;
         } else if (teamPoints - oppPoints == 0) {
             return 1;
         } else {
@@ -36,44 +38,42 @@ export function getTeamRecord(
         }
     };
 
-    return [...team.homeGames, ...team.awayGames].map((game) => {
-        switch (determineOutcome(game)) {
-            case 2:
-                return "win";
-            case 1:
-                return "draw";
-            case 0:
-                return "loss";
-        }
-    });
+    return [...team.homeGames, ...team.awayGames]
+        .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
+        .map((game) => {
+            switch (determineOutcome(game)) {
+                case 2:
+                    return "win";
+                case 1:
+                    return "draw";
+                case 0:
+                    return "loss";
+                case -1:
+                    return "not played";
+            }
+        });
 }
 
-import prisma from "./prismaClient";
-import dayjs from "dayjs";
+// import prisma from "./prismaClient";
 
-const teams = await prisma.team.findMany({
-    include: {
-        homeGames: {
-            include: { performances: true },
-            orderBy: { timestamp: "asc" },
-            where: {
-                timestamp: { lt: dayjs().subtract(1.5, "hours").toDate() },
-            },
-        },
-        awayGames: {
-            include: { performances: true },
-            orderBy: { timestamp: "asc" },
-            where: {
-                timestamp: { lt: dayjs().subtract(1.5, "hours").toDate() },
-            },
-        },
-    },
-});
-
-console.log(
-    `teams[0]:\t${teams[0].name}\nteam record:\t${getTeamRecord(
-        teams[0]
-    )}\ntimestamps:\t${[...teams[0].homeGames, ...teams[0].awayGames]
-        .map((gm) => dayjs(gm.timestamp).format("ddd M/D"))
-        .join(", ")}`
-);
+// console.log(
+//     getTeamRecord(
+//         await prisma.team.findFirstOrThrow({
+//             include: {
+//                 homeGames: {
+//                     include: {
+//                         performances: true,
+//                     },
+//                 },
+//                 awayGames: {
+//                     include: {
+//                         performances: true,
+//                     },
+//                 },
+//             },
+//             where: {
+//                 id: 4,
+//             },
+//         })
+//     )
+// );
