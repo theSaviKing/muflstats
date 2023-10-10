@@ -1,10 +1,26 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Rubik } from "next/font/google";
+import { Manrope, Rubik, Martian_Mono } from "next/font/google";
 import { Providers } from "../providers";
 
-export const inter = Inter({ subsets: ["latin"], weight: "variable" });
-export const rubik = Rubik({ subsets: ["latin"], weight: "variable" });
+// export const martian = Martian_Mono({
+//     subsets: ["latin"],
+//     weight: "variable",
+//     display: "swap",
+//     variable: "--font-martian",
+// });
+export const manrope = Manrope({
+    subsets: ["latin"],
+    weight: "variable",
+    display: "swap",
+    variable: "--font-manrope",
+});
+export const rubik = Rubik({
+    subsets: ["latin"],
+    weight: "variable",
+    display: "swap",
+    variable: "--font-rubik",
+});
 
 export const metadata: Metadata = {
     title: {
@@ -21,7 +37,7 @@ export default function RootLayout({
     return (
         <html lang="en" className="mydark text-foreground bg-background">
             <body
-                className={`${inter.className} ${rubik.className} w-screen h-screen select-none`}
+                className={`${manrope.variable} ${rubik.variable} select-none font-sans`}
             >
                 <Providers>{children}</Providers>
             </body>

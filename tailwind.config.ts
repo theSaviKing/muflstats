@@ -11,8 +11,16 @@ const config: Config = {
     theme: {
         extend: {
             fontFamily: {
-                display: ["Inter", ...defaultTheme.fontFamily.serif],
-                sans: ["Rubik", ...defaultTheme.fontFamily.sans],
+                display: [
+                    "var(--font-manrope)",
+                    ...defaultTheme.fontFamily.serif,
+                ],
+                sans: ["var(--font-rubik)", ...defaultTheme.fontFamily.sans],
+                // mono: ["var(--font-martian)", ...defaultTheme.fontFamily.mono],
+            },
+            screens: {
+                "no-hover": { raw: "(hover:none)" },
+                "can-hover": { raw: "(hover:hover)" },
             },
         },
     },
@@ -63,6 +71,18 @@ const config: Config = {
         }),
         plugin(function ({ addUtilities }) {
             addUtilities({
+                // ".font-display": {
+                //     "font-family": "var(--font-manrope)",
+                // },
+                // ".font-sans": {
+                //     "font-family": "var(--font-rubik)",
+                // },
+                // ".font-mono": {
+                //     "font-family": "var(--font-martian)",
+                // },
+                // ".font-number": {
+                //     "@apply font-mono font-medium": {},
+                // },
                 ".flex-center": {
                     "@apply justify-center items-center": {},
                 },

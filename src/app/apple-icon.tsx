@@ -1,4 +1,4 @@
-import { Icon } from "./icon";
+import { Icon } from "../components/Icon";
 import { ImageResponse } from "next/server";
 
 export const size = { width: 192, height: 192 };

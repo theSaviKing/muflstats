@@ -18,11 +18,9 @@ export default function Ticker({
     const tickerList = infoList.map((info, index) => {
         if (typeof info === "string") {
             return (
-                <p
-                    className="animate-fade-in"
-                    key={index}
-                    dangerouslySetInnerHTML={{ __html: info }}
-                ></p>
+                <p className="animate-fade-in" key={index}>
+                    {info}
+                </p>
             );
         } else {
             return (

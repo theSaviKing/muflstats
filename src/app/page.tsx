@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Icon } from "./icon";
+import { Icon } from "../components/Icon";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import { ChartBarIcon } from "@heroicons/react/20/solid";

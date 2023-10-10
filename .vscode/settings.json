@@ -6,17 +6,17 @@
             {
                 "name": "$(terminal) Run Dev",
                 "singleInstance": true,
-                "command": "bun run dev"
+                "command": "npm run dev"
             },
             {
                 "name": "$(arrow-up) Push Prisma Schema",
                 "singleInstance": true,
-                "command": "bunx prisma db push"
+                "command": "npx prisma db push"
             },
             {
                 "name": "$(inspect) Prisma Studio",
                 "singleInstance": true,
-                "command": "bunx prisma studio"
+                "command": "npx prisma studio"
             }
         ]
     }

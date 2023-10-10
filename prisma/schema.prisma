@@ -11,9 +11,9 @@ datasource db {
 model Player {
     id           Int           @id @default(autoincrement())
     createdAt    DateTime      @default(now()) @db.Timestamptz(6)
-    firstName    String        @db.Char(50)
-    lastName     String        @db.Char(50)
-    nickname     String?       @db.Char(50)
+    firstName    String        @db.VarChar
+    lastName     String        @db.VarChar
+    nickname     String?       @db.VarChar
     role         Role
     teamId       Int?
     updatedAt    DateTime?     @updatedAt @db.Timestamptz(6)
@@ -27,12 +27,12 @@ model Player {
 
 model Team {
     id           Int           @id @default(autoincrement())
-    name         String        @unique @db.Char(50)
-    shortName    String        @db.Char(50)
+    name         String        @unique @db.VarChar
+    shortName    String        @db.VarChar
     createdAt    DateTime      @default(now()) @db.Timestamptz(6)
     updatedAt    DateTime?     @updatedAt @db.Timestamptz(6)
     seasonId     Int
-    color        String        @db.Char(10)
+    color        String        @db.VarChar
     awayGames    Game[]        @relation("AwayGames")
     homeGames    Game[]        @relation("HomeGames")
     players      Player[]
@@ -91,6 +91,7 @@ enum Role {
 }
 
 enum GameType {
+    PreSeason
     Regular
     Playoff
 }
