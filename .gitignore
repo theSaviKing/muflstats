@@ -19,6 +19,7 @@
 .DS_Store
 *.pem
 *.csv
+perfs.ts
 
 # debug
 npm-debug.log*
