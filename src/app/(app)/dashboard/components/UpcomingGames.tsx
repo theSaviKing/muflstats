@@ -1,9 +1,14 @@
 import prisma from "@/lib/prismaClient";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { Card, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import LoadingError from "@/components/LoadingError";
-import dayjs from "@/lib/dayjs";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault(dayjs.tz.guess());
 
 async function getUpcomingGames() {
     try {
@@ -56,7 +61,7 @@ export default async function UpcomingGames() {
                         <span className="font-bold text-xs">VS</span>
                         <span className="text-lg font-light flex-center !inline-flex group-hover:gap-x-2 transition-all duration-500">
                             <div
-                                className="w-2 h-2 border-2 rounded-full -ml-2 group-hover:ml-0 transition-all opacity-0 group-hover:opacity-100"
+                                className="w-2 h-2 border-2 rounded-full -mr-2 group-hover:mr-0 transition-all opacity-0 group-hover:opacity-100"
                                 style={{ borderColor: game.awayTeam.color }}
                             ></div>
                             {game.awayTeam.shortName}
@@ -64,16 +69,15 @@ export default async function UpcomingGames() {
                     </p>
                     <Divider />
                     <p className="text-sm font-medium text-center">
-                        {dayjs(game.timestamp).isSame(dayjs(), "day")
+                        {dayjs.tz(game.timestamp).isSame(dayjs(), "day")
                             ? "Today"
-                            : dayjs(game.timestamp).isSame(
-                                  dayjs().add(1, "day"),
-                                  "day"
-                              )
+                            : dayjs
+                                  .tz(game.timestamp)
+                                  .isSame(dayjs.tz().add(1, "day"), "day")
                             ? "Tomorrow"
-                            : dayjs(game.timestamp).format("ddd M/D")}
+                            : dayjs.tz(game.timestamp).format("ddd M/D")}
                         <br />
-                        {dayjs(game.timestamp).format("h:mm A")}
+                        {dayjs.tz(game.timestamp).format("h:mm A")}
                     </p>
                 </Card>
             ))}

@@ -1,5 +1,12 @@
 import { Prisma } from "@prisma/client";
 
+export const teamRecordData = {
+    include: {
+        homeGames: { include: { performances: true } },
+        awayGames: { include: { performances: true } },
+    },
+};
+
 /**
  * Calculates the outcomes (win, loss, or draw) of a team's games based on the points scored.
  * @param team - The team object containing home and away games with performances.
