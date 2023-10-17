@@ -18,7 +18,7 @@ export function getTeamRecord(
             homeGames: { include: { performances: true } };
             awayGames: { include: { performances: true } };
         };
-    }>
+    }>,
 ) {
     /**
      * Determines the outcome of a game based on the points scored.
@@ -26,7 +26,7 @@ export function getTeamRecord(
      * @returns The outcome of the game: win, draw, loss, or not played
      */
     const determineOutcome = (
-        game: Prisma.GameGetPayload<{ include: { performances: true } }>
+        game: Prisma.GameGetPayload<{ include: { performances: true } }>,
     ) => {
         const teamPoints = game.performances
             .filter((p) => p.teamId === team.id)

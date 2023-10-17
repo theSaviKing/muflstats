@@ -1,5 +1,5 @@
 import prisma from "@/lib/prismaClient";
-import LoadingError from "../../../../../components/LoadingError";
+import LoadingError from "@/components/LoadingError";
 import { MatchupCard } from "./MatchupCard";
 
 async function getMostRecentMatchup() {
@@ -26,7 +26,7 @@ async function getMostRecentMatchup() {
         mostRecentGame.performances.forEach((perf) =>
             perf.teamId === mostRecentGame.homeTeamId
                 ? (homeTeamScores += perf.goalsCaught)
-                : (awayTeamScores += perf.goalsCaught)
+                : (awayTeamScores += perf.goalsCaught),
         );
         return {
             ...mostRecentGame,

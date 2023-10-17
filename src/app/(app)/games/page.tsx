@@ -16,7 +16,7 @@ async function getGames() {
             },
             where: {
                 timestamp: {
-                    gte: new Date("2023-9-25"),
+                    gte: new Date("2023-10-9"),
                 },
             },
         });
@@ -33,7 +33,7 @@ async function Games() {
     const games = await getGames();
     if (typeof games === "boolean") return <LoadingError />;
     return (
-        <div className="w-3/5 grid grid-cols-1 gap-2">
+        <div className="w-full md:w-3/5 grid grid-cols-1 gap-2">
             {games.map((game) => {
                 let past = game.timestamp < new Date();
                 return (
@@ -53,7 +53,7 @@ async function Games() {
                                     {game.homeTeam.name} [{game.homeTeam.id}]
                                 </p>
                                 <p>vs.</p>
-                                <p className="font-bold">
+                                <p className="font-bold text-right">
                                     {game.awayTeam.name} [{game.awayTeam.id}]
                                 </p>
                                 <div

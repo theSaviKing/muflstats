@@ -8,6 +8,6 @@ export const size = { width: 32, height: 32 };
 export default function Favicon() {
     return new ImageResponse(
         <Icon style={{ width: "100%", height: "100%" }} />,
-        { ...size }
+        { ...size },
     );
 }

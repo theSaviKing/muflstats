@@ -3,12 +3,6 @@ import { Card, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import LoadingError from "@/components/LoadingError";
 import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.tz.setDefault(dayjs.tz.guess());
 
 async function getUpcomingGames() {
     try {
@@ -69,15 +63,22 @@ export default async function UpcomingGames() {
                     </p>
                     <Divider />
                     <p className="text-sm font-medium text-center">
-                        {dayjs.tz(game.timestamp).isSame(dayjs(), "day")
+                        {dayjs(game.timestamp).isSame(dayjs(), "day")
                             ? "Today"
-                            : dayjs
-                                  .tz(game.timestamp)
-                                  .isSame(dayjs.tz().add(1, "day"), "day")
+                            : dayjs(game.timestamp).isSame(
+                                  dayjs().add(1, "day"),
+                                  "day",
+                              )
                             ? "Tomorrow"
-                            : dayjs.tz(game.timestamp).format("ddd M/D")}
+                            : game.timestamp.toLocaleDateString("en-US", {
+                                  weekday: "short",
+                                  month: "numeric",
+                                  day: "numeric",
+                              })}
                         <br />
-                        {dayjs.tz(game.timestamp).format("h:mm A")}
+                        {game.timestamp.toLocaleTimeString("en-US", {
+                            timeStyle: "short",
+                        })}
                     </p>
                 </Card>
             ))}

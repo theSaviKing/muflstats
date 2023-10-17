@@ -54,7 +54,7 @@ export function TopPlayerTable({
                                     <span className="inline lg:hidden">{`${
                                         perf.player.firstName
                                     } ${perf.player.lastName.charAt(
-                                        0
+                                        0,
                                     )}.`}</span>
                                 </TCell>
                                 <TCell>{perf.team.shortName}</TCell>
@@ -81,6 +81,7 @@ export function TopPlayerTable({
                                         }
                                         color="primary"
                                         showArrow
+                                        isDismissable
                                     >
                                         <p className="text-center w-full underline no-hover:no-underline decoration-foreground/50 underline-offset-4 decoration-dotted">
                                             {perf.pts}
