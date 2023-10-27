@@ -34,11 +34,9 @@ export default function PageLayout({
             <Navbar isBordered>
                 <NavbarBrand className="gap-4 w-min" as={Link} href="/">
                     <Icon className="w-10 h-10" />
-                    <h1 className="text-3xl font-black text-primary-200 hidden md:inline">
-                        MUFLStats
-                    </h1>
-                    <h1 className="text-3xl font-black text-primary-200 md:hidden">
-                        MS
+                    <h1 className="text-3xl text-primary-200">
+                        <span className="hidden md:inline">MUFLStats</span>
+                        <span className="inline md:hidden">MS</span>
                     </h1>
                 </NavbarBrand>
                 {/* <NavbarContent className="hidden lg:flex gap-2">

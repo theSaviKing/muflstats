@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("./daisyui.css");
+@import url("./sk.css");
+
+html {
+    scroll-behavior: smooth;
+}
+
+@layer utilities {
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out;
+    }
+
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-display cursive-auto;
+    }
+    h1 {
+        @apply font-bold;
+    }
+    h1#title {
+        @apply text-5xl font-thin;
+    }
+}

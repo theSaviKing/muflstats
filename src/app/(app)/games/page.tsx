@@ -1,8 +1,9 @@
 import prisma from "@/lib/prismaClient";
-import LoadingError from "../../../components/LoadingError";
+import LoadingError from "@/components/LoadingError";
 import { Suspense } from "react";
 import LoadingBars from "@/components/LoadingBars";
 import { Metadata } from "next";
+import chroma from "chroma-js";
 
 async function getGames() {
     try {
@@ -16,7 +17,7 @@ async function getGames() {
             },
             where: {
                 timestamp: {
-                    gte: new Date("2023-10-9"),
+                    gte: new Date("2023-10-16"),
                 },
             },
         });
@@ -35,7 +36,6 @@ async function Games() {
     return (
         <div className="w-full md:w-3/5 grid grid-cols-1 gap-2">
             {games.map((game) => {
-                let past = game.timestamp < new Date();
                 return (
                     <div className="flex-center w-full" key={game.id}>
                         <p className="p-4 w-16 h-full flex-center rounded-l border-l-2 border-y-2 border-content2 font-bold shrink-0">
@@ -44,24 +44,28 @@ async function Games() {
                         <div className="p-4 rounded-r border-2 border-content2 grow flex-center flex-col gap-2">
                             <div className="flex-center gap-4">
                                 <div
-                                    className="w-4 h-4 rounded-full outline outline-1 outline-primary outline-offset-2"
+                                    className="px-2 py-1 rounded-sm text-sm font-bold"
                                     style={{
                                         backgroundColor: game.homeTeam.color,
                                     }}
-                                ></div>
+                                >
+                                    {game.homeTeam.id}
+                                </div>
                                 <p className="font-bold">
-                                    {game.homeTeam.name} [{game.homeTeam.id}]
+                                    {game.homeTeam.name}
                                 </p>
                                 <p>vs.</p>
                                 <p className="font-bold text-right">
-                                    {game.awayTeam.name} [{game.awayTeam.id}]
+                                    {game.awayTeam.name}
                                 </p>
                                 <div
-                                    className="w-4 h-4 rounded-full outline outline-1 outline-primary outline-offset-2"
+                                    className="px-2 py-1 rounded-sm text-sm font-bold"
                                     style={{
                                         backgroundColor: game.awayTeam.color,
                                     }}
-                                ></div>
+                                >
+                                    {game.awayTeam.id}
+                                </div>
                             </div>
                             <p className="text-sm opacity-60 text-center w-full">
                                 {game.timestamp.toLocaleDateString("en-US", {
@@ -86,7 +90,7 @@ export default async function GamesPage() {
     return (
         <>
             <h1 className="text-5xl font-thin">Games</h1>
-            <Suspense fallback={<LoadingBars inCard={false} />}>
+            <Suspense fallback={<LoadingBars />}>
                 <Games />
             </Suspense>
         </>

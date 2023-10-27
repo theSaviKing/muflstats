@@ -3,38 +3,33 @@ import { Card, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import LoadingError from "@/components/LoadingError";
 import dayjs from "dayjs";
+import { ErrorBoundary } from "react-error-boundary";
+import { Prisma } from "@prisma/client";
 
 async function getUpcomingGames() {
-    try {
-        return await prisma.game.findMany({
-            orderBy: {
-                timestamp: "asc",
+    return await prisma.game.findMany({
+        orderBy: {
+            timestamp: "asc",
+        },
+        where: {
+            timestamp: {
+                gte: new Date(),
             },
-            where: {
-                timestamp: {
-                    gte: new Date(),
-                },
-            },
-            select: {
-                homeTeam: true,
-                awayTeam: true,
-                timestamp: true,
-                id: true,
-            },
-        });
-    } catch (err) {
-        return false;
-    }
+        },
+        select: {
+            homeTeam: true,
+            awayTeam: true,
+            timestamp: true,
+            id: true,
+        },
+    });
 }
 
 export default async function UpcomingGames() {
     const upcomingGames = await getUpcomingGames();
-    if (typeof upcomingGames === "boolean") {
-        return <LoadingError length="short" />;
-    }
     const gameList = upcomingGames.slice(0, 4);
     return (
-        <CardBody className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4">
             {gameList.map((game, index) => (
                 <Card
                     className={
@@ -82,6 +77,6 @@ export default async function UpcomingGames() {
                     </p>
                 </Card>
             ))}
-        </CardBody>
+        </div>
     );
 }

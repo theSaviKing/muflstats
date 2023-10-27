@@ -4,6 +4,7 @@ export const teamRecordData = {
     include: {
         homeGames: { include: { performances: true } },
         awayGames: { include: { performances: true } },
+        players: true,
     },
 };
 
@@ -13,12 +14,7 @@ export const teamRecordData = {
  * @returns An array of outcomes for each game.
  */
 export function getTeamRecord(
-    team: Prisma.TeamGetPayload<{
-        include: {
-            homeGames: { include: { performances: true } };
-            awayGames: { include: { performances: true } };
-        };
-    }>,
+    team: Prisma.TeamGetPayload<typeof teamRecordData>,
 ) {
     /**
      * Determines the outcome of a game based on the points scored.
@@ -26,7 +22,7 @@ export function getTeamRecord(
      * @returns The outcome of the game: win, draw, loss, or not played
      */
     const determineOutcome = (
-        game: Prisma.GameGetPayload<{ include: { performances: true } }>,
+        game: Prisma.GameGetPayload<typeof teamRecordData.include.homeGames>,
     ) => {
         const teamPoints = game.performances
             .filter((p) => p.teamId === team.id)
@@ -50,26 +46,32 @@ export function getTeamRecord(
         .map((game) => determineOutcome(game));
 }
 
-// import prisma from "./prismaClient";
-
-// console.log(
-//     getTeamRecord(
-//         await prisma.team.findFirstOrThrow({
-//             include: {
-//                 homeGames: {
-//                     include: {
-//                         performances: true,
-//                     },
-//                 },
-//                 awayGames: {
-//                     include: {
-//                         performances: true,
-//                     },
-//                 },
-//             },
-//             where: {
-//                 id: 4,
-//             },
-//         })
-//     )
-// );
+/**
+ * Calculates the team's points based on their performances in home and away games.
+ * @param team - The team object containing home and away games.
+ * @returns An object with the total goals caught, goals thrown, and defensive plays.
+ */
+export function getTeamPoints(
+    team: Prisma.TeamGetPayload<typeof teamRecordData>,
+): { goalsCaught: number; goalsThrown: number; defensivePlays: number } {
+    const performances = [...team.homeGames, ...team.awayGames]
+        .map((gm) => gm.performances)
+        .flat();
+    const goalsCaught = performances.reduce(
+        (prev, { goalsCaught }) => prev + goalsCaught,
+        0,
+    );
+    const goalsThrown = performances.reduce(
+        (prev, { goalsThrown }) => prev + goalsThrown,
+        0,
+    );
+    const defensivePlays = performances.reduce(
+        (prev, { defensivePlays }) => prev + defensivePlays,
+        0,
+    );
+    return {
+        goalsCaught: goalsCaught,
+        goalsThrown: goalsThrown,
+        defensivePlays: defensivePlays,
+    };
+}

@@ -1,25 +1,29 @@
-import "./globals.css";
 import type { Metadata } from "next";
-import { Manrope, Rubik, Martian_Mono } from "next/font/google";
+import {
+    IBM_Plex_Sans as IBMSans,
+    IBM_Plex_Sans_Condensed as IBMCondensed,
+    IBM_Plex_Mono as IBMMono,
+} from "next/font/google";
 import { Providers } from "../providers";
+import "./css/globals.css";
 
-// export const martian = Martian_Mono({
-//     subsets: ["latin"],
-//     weight: "variable",
-//     display: "swap",
-//     variable: "--font-martian",
-// });
-export const manrope = Manrope({
+export const ibmSans = IBMSans({
     subsets: ["latin"],
-    weight: "variable",
+    weight: ["100", "200", "300", "400", "500", "600", "700"],
     display: "swap",
-    variable: "--font-manrope",
+    variable: "--font-sans",
 });
-export const rubik = Rubik({
+export const ibmCondensed = IBMCondensed({
     subsets: ["latin"],
-    weight: "variable",
+    weight: ["100", "200", "300", "400", "500", "600", "700"],
     display: "swap",
-    variable: "--font-rubik",
+    variable: "--font-display",
+});
+export const ibmMono = IBMMono({
+    subsets: ["latin"],
+    weight: ["100", "200", "300", "400", "500", "600", "700"],
+    display: "swap",
+    variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +41,7 @@ export default function RootLayout({
     return (
         <html lang="en" className="mydark text-foreground bg-background">
             <body
-                className={`${manrope.variable} ${rubik.variable} select-none font-sans`}
+                className={`${ibmSans.variable} ${ibmCondensed.variable} ${ibmMono.variable} select-none font-sans`}
             >
                 <Providers>{children}</Providers>
             </body>

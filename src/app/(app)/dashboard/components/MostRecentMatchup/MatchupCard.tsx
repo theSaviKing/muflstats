@@ -1,7 +1,5 @@
 "use client";
 
-import { CardBody } from "@nextui-org/card";
-import { Checkbox } from "@nextui-org/checkbox";
 import { Prisma } from "@prisma/client";
 import { CSSProperties, useEffect, useState } from "react";
 
@@ -15,11 +13,11 @@ export function MatchupCard({
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
         setTimeout(() => setIsLoaded(true), 100);
-        console.log("window loaded.");
+        // console.log("window loaded.");
     }, []);
     let homeTeamWin = matchup.homeTeamScores > matchup.awayTeamScores;
     return (
-        <CardBody className="flex flex-col sm:flex-row w-full flex-center gap-4 text-center">
+        <div className="flex flex-col sm:flex-row w-full flex-center gap-4 text-center">
             <div className="text-right flex-center gap-4">
                 <div
                     className="rounded-full w-5 h-5 outline outline-1 outline-primary outline-offset-2 shrink-0"
@@ -31,7 +29,7 @@ export function MatchupCard({
             </div>
             <div className="flex shrink-0 justify-center items-center gap-2">
                 <div
-                    className={`rounded px-4 py-2 font-bold shadow transition-colors duration-1000 ${
+                    className={`font-mono rounded px-4 py-2 font-bold shadow transition-colors duration-1000 ${
                         isLoaded && homeTeamWin
                             ? "bg-success-700"
                             : "bg-content2"
@@ -51,7 +49,7 @@ export function MatchupCard({
                 </div>
                 <div className="w-6 h-[0.1rem] bg-white/75"></div>
                 <div
-                    className={`rounded px-4 py-2 font-bold shadow transition-colors duration-1000 ${
+                    className={`font-mono rounded px-4 py-2 font-bold shadow transition-colors duration-1000 ${
                         isLoaded && !homeTeamWin
                             ? "bg-success-700"
                             : "bg-content2"
@@ -80,6 +78,6 @@ export function MatchupCard({
                     }}
                 ></div>
             </div>
-        </CardBody>
+        </div>
     );
 }

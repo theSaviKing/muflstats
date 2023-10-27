@@ -12,11 +12,11 @@ const config: Config = {
         extend: {
             fontFamily: {
                 display: [
-                    "var(--font-manrope)",
+                    "var(--font-display)",
                     ...defaultTheme.fontFamily.serif,
                 ],
-                sans: ["var(--font-rubik)", ...defaultTheme.fontFamily.sans],
-                // mono: ["var(--font-martian)", ...defaultTheme.fontFamily.mono],
+                sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+                mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
             },
             screens: {
                 "no-hover": { raw: "(hover:none)" },
@@ -69,25 +69,16 @@ const config: Config = {
                 },
             },
         }),
-        plugin(function ({ addUtilities }) {
+        plugin(function ({ addUtilities, addVariant }) {
             addUtilities({
-                // ".font-display": {
-                //     "font-family": "var(--font-manrope)",
-                // },
-                // ".font-sans": {
-                //     "font-family": "var(--font-rubik)",
-                // },
-                // ".font-mono": {
-                //     "font-family": "var(--font-martian)",
-                // },
-                // ".font-number": {
-                //     "@apply font-mono font-medium": {},
-                // },
                 ".flex-center": {
                     "@apply justify-center items-center": {},
                 },
             });
+            addVariant("children", "& > *");
         }),
+        require("@deck9/tailwindcss-recursive-font-helper"),
+        require("@tailwindcss/container-queries"),
     ],
     darkMode: "class",
 };

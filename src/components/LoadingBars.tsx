@@ -1,11 +1,10 @@
 import { CardBody } from "@nextui-org/card";
 
-export default function LoadingBars({ inCard = true }: { inCard?: boolean }) {
-    let Comp = inCard ? CardBody : "div";
+export default function LoadingBars() {
     return (
-        <Comp className="flex-center flex-row gap-2">
+        <div className="flex-center flex-row gap-2">
             <span className="loading loading-bars w-8 h-8 text-secondary"></span>
             Loading...
-        </Comp>
+        </div>
     );
 }
