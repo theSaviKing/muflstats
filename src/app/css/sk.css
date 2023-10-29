@@ -1,6 +1,6 @@
 :root {
     --sk-size: 40px;
-    --sk-color: #333;
+    --sk-color: currentColor;
 }
 .sk-center {
     margin: auto;

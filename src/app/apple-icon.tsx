@@ -1,5 +1,5 @@
 import { Icon } from "../components/Icon";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 export const size = { width: 192, height: 192 };
 

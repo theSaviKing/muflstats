@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("./daisyui.css");
-@import url("./sk.css");
+@import "./daisyui.css";
+@import "./sk.css";
 
 html {
     scroll-behavior: smooth;

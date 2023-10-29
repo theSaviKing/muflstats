@@ -8,6 +8,7 @@ import { Prisma } from "@prisma/client";
 
 async function getUpcomingGames() {
     return await prisma.game.findMany({
+        take: 4,
         orderBy: {
             timestamp: "asc",
         },
@@ -27,10 +28,9 @@ async function getUpcomingGames() {
 
 export default async function UpcomingGames() {
     const upcomingGames = await getUpcomingGames();
-    const gameList = upcomingGames.slice(0, 4);
     return (
         <div className="grid grid-cols-2 gap-4">
-            {gameList.map((game, index) => (
+            {upcomingGames.map((game, index) => (
                 <Card
                     className={
                         "border-content2 hover:bg-content2 border-2 p-4 hover:shadow-lg flex-center flex-col gap-4 group"

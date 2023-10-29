@@ -1,15 +1,16 @@
 "use client";
 
 import {
-    ArrowRightIcon,
     UserGroupIcon as TinyPlayers,
     TrophyIcon as TinyTrophy,
     ChartBarIcon as TinyStats,
+    StarIcon as TinyScore,
 } from "@heroicons/react/20/solid";
 import {
     TrophyIcon,
     UserGroupIcon,
     ChartBarIcon,
+    StarIcon,
 } from "@heroicons/react/24/solid";
 import { Button } from "@nextui-org/button";
 import {
@@ -19,9 +20,9 @@ import {
     NavbarItem,
 } from "@nextui-org/navbar";
 import Link from "next/link";
-import { Icon } from "../../components/Icon";
-import LetterIcon from "@/components/LetterIcon";
+import { Icon } from "@/components/Icon";
 import { usePathname } from "next/navigation";
+import { extendVariants } from "@nextui-org/react";
 
 export default function PageLayout({
     children,
@@ -62,83 +63,69 @@ export default function PageLayout({
                     </Link>
                 </NavbarContent> */}
                 <NavbarContent className="gap-2" justify="end">
-                    <NavbarItem>
-                        <Link href="/dashboard" tabIndex={-1}>
-                            <Button
-                                variant={
-                                    pathname == "/dashboard" ? "flat" : "light"
-                                }
-                                size="lg"
-                                color="default"
-                                endContent={<TinyStats className="w-5 h-5" />}
-                                className="hidden sm:flex"
-                            >
-                                Dashboard
-                            </Button>
-                            <Button
-                                variant={
-                                    pathname == "/dashboard" ? "flat" : "light"
-                                }
-                                size="lg"
-                                color="default"
-                                className="flex sm:hidden"
-                                isIconOnly
-                            >
-                                <ChartBarIcon className="w-6 h-6" />
-                            </Button>
-                        </Link>
+                    <NavbarItem as={Link} href="/dashboard" tabIndex={-1}>
+                        <Button
+                            variant={
+                                pathname == "/dashboard" ? "flat" : "light"
+                            }
+                            size="lg"
+                            color="default"
+                            endContent={<TinyStats className="w-5 h-5" />}
+                            className="hidden sm:flex"
+                        >
+                            Dashboard
+                        </Button>
+                        <Button
+                            variant={
+                                pathname == "/dashboard" ? "flat" : "light"
+                            }
+                            size="lg"
+                            color="default"
+                            className="flex sm:hidden"
+                            isIconOnly
+                        >
+                            <ChartBarIcon className="w-6 h-6" />
+                        </Button>
                     </NavbarItem>
-                    <NavbarItem>
-                        <Link href="/players" tabIndex={-1}>
-                            <Button
-                                variant={
-                                    pathname == "/players" ? "flat" : "light"
-                                }
-                                size="lg"
-                                color="primary"
-                                endContent={<TinyPlayers className="w-5 h-5" />}
-                                className="hidden sm:flex"
-                            >
-                                Players
-                            </Button>
-                            <Button
-                                variant={
-                                    pathname == "/players" ? "flat" : "light"
-                                }
-                                size="lg"
-                                color="primary"
-                                className="flex sm:hidden"
-                                isIconOnly
-                            >
-                                <UserGroupIcon className="w-6 h-6" />
-                            </Button>
-                        </Link>
+                    <NavbarItem as={Link} href="/players" tabIndex={-1}>
+                        <Button
+                            variant={pathname == "/players" ? "flat" : "light"}
+                            size="lg"
+                            color="primary"
+                            endContent={<TinyPlayers className="w-5 h-5" />}
+                            className="hidden sm:flex"
+                        >
+                            Players
+                        </Button>
+                        <Button
+                            variant={pathname == "/players" ? "flat" : "light"}
+                            size="lg"
+                            color="primary"
+                            className="flex sm:hidden"
+                            isIconOnly
+                        >
+                            <UserGroupIcon className="w-6 h-6" />
+                        </Button>
                     </NavbarItem>
-                    <NavbarItem>
-                        <Link href="/games" tabIndex={-1}>
-                            <Button
-                                variant={
-                                    pathname == "/games" ? "flat" : "light"
-                                }
-                                size="lg"
-                                color="secondary"
-                                endContent={<TinyTrophy className="w-5 h-5" />}
-                                className="hidden sm:flex"
-                            >
-                                Games
-                            </Button>
-                            <Button
-                                variant={
-                                    pathname == "/games" ? "flat" : "light"
-                                }
-                                size="lg"
-                                color="secondary"
-                                className="flex sm:hidden"
-                                isIconOnly
-                            >
-                                <TrophyIcon className="w-6 h-6" />
-                            </Button>
-                        </Link>
+                    <NavbarItem as={Link} href="/games" tabIndex={-1}>
+                        <Button
+                            variant={pathname == "/games" ? "flat" : "light"}
+                            size="lg"
+                            color="secondary"
+                            endContent={<TinyTrophy className="w-5 h-5" />}
+                            className="hidden sm:flex"
+                        >
+                            Games
+                        </Button>
+                        <Button
+                            variant={pathname == "/games" ? "flat" : "light"}
+                            size="lg"
+                            color="secondary"
+                            className="flex sm:hidden"
+                            isIconOnly
+                        >
+                            <TrophyIcon className="w-6 h-6" />
+                        </Button>
                     </NavbarItem>
                 </NavbarContent>
             </Navbar>
