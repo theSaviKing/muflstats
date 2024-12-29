@@ -72,12 +72,22 @@ const config: Config = {
         plugin(function ({ addUtilities, addVariant }) {
             addUtilities({
                 ".flex-center": {
-                    "@apply justify-center items-center": {},
+                    justifyContent: "center",
+                    alignItems: "center",
+                },
+                ".flex-center-col": {
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                },
+                ".flex-center-row": {
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
                 },
             });
             addVariant("children", "& > *");
         }),
-        require("@deck9/tailwindcss-recursive-font-helper"),
         require("@tailwindcss/container-queries"),
     ],
     darkMode: "class",

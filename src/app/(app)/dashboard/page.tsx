@@ -1,9 +1,9 @@
 import Ticker, { type TickerTypes } from "@/components/Ticker";
+import { MSErrorBoundary } from "@/lib/error";
 import { DashCard, DashSuspense, SectionHeader } from "@/lib/utils";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Card } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { type Metadata } from "next";
-import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import LeagueStandings from "./components/LeagueStandings";
 import MostRecentMatchup from "./components/MostRecentMatchup";
 import TopPerformances from "./components/TopPerformances";
@@ -14,31 +14,6 @@ const information: TickerTypes = [
     "Donations of any amount help keep the league going. Your generosity is appreciated!",
 ];
 
-export async function errorFallback({
-    error,
-    resetErrorBoundary,
-}: FallbackProps) {
-    "use server";
-    return (
-        <Card className="w-1/2">
-            <CardHeader className="flex-center font-bold text-xl font-display">
-                An error occurred.
-            </CardHeader>
-            <Divider />
-            <CardBody className="flex-center">
-                <p>Try refreshing the page.</p>
-            </CardBody>
-            <Divider />
-            <CardFooter className="flex-center">
-                <p className="font-bold font-display">ERROR</p>
-                <pre className="p-2 rounded bg-background text-sm">
-                    <code>{error.message}</code>
-                </pre>
-            </CardFooter>
-        </Card>
-    );
-}
-
 export const dynamic = "auto",
     revalidate = 600,
     metadata: Metadata = { title: "Dashboard" };
@@ -48,7 +23,7 @@ export default async function Dashboard() {
         <>
             <h1 id="title">Dashboard</h1>
             <Ticker infoList={information} className="mb-4 w-full md:w-2/3" />
-            <ErrorBoundary fallbackRender={errorFallback}>
+            <MSErrorBoundary>
                 <DashCard
                     title="most recent matchup"
                     className="w-[48rem] max-w-full"
@@ -80,7 +55,7 @@ export default async function Dashboard() {
                         </DashSuspense>
                     </Card>
                 </div>
-            </ErrorBoundary>
+            </MSErrorBoundary>
         </>
     );
 }

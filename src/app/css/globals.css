@@ -32,7 +32,7 @@ html {
     h4,
     h5,
     h6 {
-        @apply font-display cursive-auto;
+        @apply font-display;
     }
     h1 {
         @apply font-bold;

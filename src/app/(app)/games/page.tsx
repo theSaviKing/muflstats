@@ -1,24 +1,46 @@
+import { MSErrorBoundary } from "@/lib/error";
 import prisma from "@/lib/prismaClient";
-import LoadingError from "@/components/LoadingError";
-import { Suspense } from "react";
-import LoadingBars from "@/components/LoadingBars";
-import { Metadata } from "next";
+import {
+    includeGameWithTeams,
+    includeTeamWithGamesAndPerformances,
+} from "@/lib/types";
 import { DashCard } from "@/lib/utils";
-import { DashSuspense } from "@/lib/utils";
-import { SectionHeader } from "@/lib/utils";
-import { Card } from "@nextui-org/card";
+import { Metadata } from "next";
+import FutureGames from "./components/FutureGames";
 import NextGame from "./components/NextGame";
+import PastGames from "./components/PastGames";
 
-async function getGames() {
-    return await prisma.game.findMany({
-        include: {
-            homeTeam: true,
-            awayTeam: true,
-        },
+export async function getGames() {
+    const games = await prisma.game.findMany({
         orderBy: {
             timestamp: "asc",
         },
+        include: {
+            performances: true,
+            homeTeam: {
+                include: {
+                    players: true,
+                    homeGames: { include: { performances: true } },
+                    awayGames: { include: { performances: true } },
+                },
+            },
+            awayTeam: {
+                include: {
+                    players: true,
+                    homeGames: { include: { performances: true } },
+                    awayGames: { include: { performances: true } },
+                },
+            },
+        },
     });
+    const pastGames = games.filter((game) => game.timestamp < new Date());
+    const futureGames = games.filter((game) => game.timestamp >= new Date());
+    const nextGame = futureGames.splice(0, 1)[0];
+    return {
+        pastGames,
+        futureGames,
+        nextGame,
+    };
 }
 
 export const metadata: Metadata = {
@@ -29,11 +51,19 @@ export default async function GamesPage() {
     return (
         <>
             <h1 className="text-5xl font-thin">Games</h1>
-            <div className="grid gap-4 grid-cols-2 w-full px-[15vw]">
-                <DashCard className="col-span-full" title="next game">
-                    <NextGame />
-                </DashCard>
-            </div>
+            <MSErrorBoundary>
+                <div className="grid gap-4 grid-cols-2 w-full md:px-[10vw]">
+                    <DashCard className="col-span-full" title="next game">
+                        <NextGame />
+                    </DashCard>
+                    <DashCard title="past games">
+                        <PastGames />
+                    </DashCard>
+                    <DashCard title="future games">
+                        <FutureGames />
+                    </DashCard>
+                </div>
+            </MSErrorBoundary>
         </>
     );
 }

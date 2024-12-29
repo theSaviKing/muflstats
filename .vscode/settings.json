@@ -4,9 +4,14 @@
         "loadNpmCommands": false,
         "commands": [
             {
-                "name": "$(terminal) Run Dev",
+                "name": "Run Dev...",
                 "singleInstance": true,
                 "command": "npm run dev"
+            },
+            {
+                "name": "...on network",
+                "singleInstance": true,
+                "command": "npm run devnet"
             },
             {
                 "name": "$(arrow-up) Push Prisma Schema",

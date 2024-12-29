@@ -10,12 +10,12 @@ import {
     Tooltip,
 } from "@nextui-org/react";
 import { Prisma } from "@prisma/client";
-import { type teamRecordData } from "./functions";
+import { type getTeamRecord, type teamRecordData } from "@/lib/teamFunctions";
 import TeamInfo, { TeamTooltip } from "./TeamInfo";
 import { useState } from "react";
 
 export type TeamDataType = (Prisma.TeamGetPayload<typeof teamRecordData> & {
-    record: ("win" | "not played" | "draw" | "loss")[];
+    record: ReturnType<typeof getTeamRecord>;
     goalsCaught: number;
     goalsThrown: number;
     defensivePlays: number;

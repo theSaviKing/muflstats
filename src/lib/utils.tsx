@@ -6,12 +6,13 @@ import { Suspense, type ReactNode } from "react";
 export function SectionHeader({ children }: { children: string }) {
     return (
         <CardHeader className="p-4">
-            <p className="font-display uppercase text-sm font-bold tracking-widest text-center">
-                {children}
+            <p className="font-display text-sm font-bold tracking-widest text-center">
+                {children.toUpperCase()}
             </p>
         </CardHeader>
     );
 }
+
 export function DashSuspense({
     fallback = (
         <CardBody>
@@ -31,6 +32,7 @@ export function DashSuspense({
         </Suspense>
     );
 }
+
 export function DashCard({
     className,
     cardClassName,
